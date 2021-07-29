@@ -33,3 +33,25 @@ body {
     font-weight: 300;
     line-height: 1.6;
 }
+
+.container {
+    display: grid;
+    // use "min-content" when you want to use the content length
+    grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
+
+    // 1140px / 8 = 142.2px; 1140px is an estimated view port width
+    // 1fr: set the 8-column grid (excluding sidebar) at the center of the container
+    // minmax(6rem, 1fr): make sure there is at least 6rem space between content and container
+    grid-template-columns:
+        [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr) [center-start] repeat(
+            8,
+            [col-start] minmax(min-content, 14rem) [col-end]
+        )
+        [center-end] minmax(6rem, 1fr) [full-end];
+
+    // development
+    & > * {
+        padding: 40px;
+        font-size: 3rem;
+    }
+}
