@@ -1,6 +1,6 @@
 .homes {
     grid-column: center-start / center-end;
-    margin-bottom: 15rem 0;
+    margin: 15rem 0;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));

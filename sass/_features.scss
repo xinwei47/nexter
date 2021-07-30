@@ -2,17 +2,30 @@
     grid-column: center-start / center-end;
 
     margin: 15rem 0;
-    // build a child grid inside of a grid item
-    display: grid;
-    // grid-template-columns: repeat(3, 1fr);
-    // make the columns responsive
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    // no need to define rows as it will create implicit rows automatically with "auto" height (min-content)
-    gap: 6rem;
-    align-items: start;
+
+    @supports (display: grid) {
+        // build a child grid inside of a grid item
+        display: grid;
+        // grid-template-columns: repeat(3, 1fr);
+        // make the columns responsive
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+        // no need to define rows as it will create implicit rows automatically with "auto" height (min-content)
+        gap: 6rem;
+        align-items: start;
+    }
 }
 
 .feature {
+    // if grid is not supported
+    float: left;
+    width: 33.33333%;
+    margin-bottom: 6rem;
+
+    @supports (display: grid) {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
     display: grid;
     grid-template-columns: min-content 1fr;
     row-gap: 1.5rem;

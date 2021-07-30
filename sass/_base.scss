@@ -14,6 +14,12 @@ $color-grey-dark-2: #6d5d4b;
 $font-primary: "Nunito", sans-serif;
 $font-display: "Josefin Sans", sans-serif;
 
+// Responsive breakpoints
+$bp-xl: 75em; // 1200px / 16px
+$bp-lg: 62.5em; // 1000px / 16px
+$bp-md: 50em; // 800px / 16px
+$bp-sm: 37.5em; // 600px / 16px
+
 *,
 *::before,
 *::after {
@@ -25,6 +31,10 @@ $font-display: "Josefin Sans", sans-serif;
 html {
     box-sizing: border-box;
     font-size: 62.5%;
+
+    @media only screen and (max-width: $bp-xl) {
+        font-size: 50%;
+    }
 }
 
 body {
@@ -42,10 +52,28 @@ body {
     // 1140px / 8 = 142.2px; 1140px is an estimated view port width
     // 1fr: set the 8-column grid (excluding sidebar) at the center of the container
     // minmax(6rem, 1fr): make sure there is at least 6rem space between content and container
+    // always name your grid lines so that it won't mess up your grid definitions when you write media queries
     grid-template-columns:
         [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr) [center-start] repeat(
             8,
             [col-start] minmax(min-content, 14rem) [col-end]
         )
         [center-end] minmax(6rem, 1fr) [full-end];
+
+    // when the screen <= $bg-lg, move the sidebar to the top of the screen
+    // In order to do this, we need to add a row and remove the sidebar column
+    @media only screen and (max-width: $bp-lg) {
+        grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+        grid-template-columns:
+            [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+            [center-end] minmax(6rem, 1fr) [full-end];
+    }
+
+    // when the screen <= $bg-md, move "realtors" below the "header"
+    // calc(100vh - 6rem): deduct the menu height from the view port
+    @media only screen and (max-width: $bp-md) {
+        // grid-template-rows: 6rem calc(100vh - 6rem) min-content min-content min-content repeat(3, min-content);
+        // since the last 6 rows are all min-content, we can actually remove them and the system will automatically set the height based on content length
+        grid-template-rows: 6rem calc(100vh - 6rem);
+    }
 }
