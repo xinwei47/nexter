@@ -6,8 +6,8 @@
     @supports (display: grid) {
         // build a child grid inside of a grid item
         display: grid;
-        // grid-template-columns: repeat(3, 1fr);
         // make the columns responsive
+        // minmax(min, max): keep in mind that using 1fr for the min value will be invalid. It only works for the max value.
         grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
         // no need to define rows as it will create implicit rows automatically with "auto" height (min-content)
         gap: 6rem;
